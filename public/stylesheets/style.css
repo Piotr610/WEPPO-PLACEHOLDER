@@ -10786,4 +10786,36 @@ a {
   font-weight: bold;
   font-size: 16px;
 }
+
+ul#management {
+  padding-right: 30px;
+}
+
+.main-section {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 130px;
+  background-color: #525252;
+  border-radius: 20px;
+}
+
+.main-section form {
+  padding: 20px;
+}
+
+.main-section button {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.main-section h2 {
+  padding: 20px;
+  color: white;
+}
+
+.main-section .links {
+  display: block;
+  padding-bottom: 15px;
+  font-size: 18px;
+}
 /*# sourceMappingURL=style.css.map */

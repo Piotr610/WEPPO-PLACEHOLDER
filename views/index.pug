@@ -9,11 +9,11 @@ mixin article(imgSource, title, description, price)
         p.description=description
         div.clearfix
           .price.float-left=price
-          a.btn.btn-success.float-right(href="#" role="button") Buy
+          a.btn.btn-success.float-right(href="#" role="button") Add to cart
 
 block content
   -const src1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEpqPVCslipaJGcye60z7sKRPG7qYcKrU7txKM_dQYZOhPvTr2&s"
-  -const title1 = "Thing (some money)"
+  -const title1 = "Thing"
   -const description1 = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum aliquam nesciunt sunt similique corrupti architecto ratione nulla odio distinctio rem neque laboriosam officia, repudiandae dolorem rerum, nobis quod porro aliquid!"
   -const price1 = "$12"
   .row

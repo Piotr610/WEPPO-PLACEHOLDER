@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .col-sm-8.main-section.text-center
+    h2.float-left Sign In
+    form.col-12
+      .form-group
+        input.form-control(type="text" placeholder="Enter Username")
+      .form-group
+        input.form-control(type="password" placeholder="Enter Password")
+      button.btn.btn-success(type="submit") Login
+    .col-12
+      a.links(href="#") Forgot Password?
+    .col-12
+      a.links(href="/register") Don't have an account?
