@@ -1,6 +1,6 @@
 extends layout
 
-mixin article(imgSource, title, description, price)
+mixin product(imgSource, title, description, price)
   .col-sm-6.col-md-4
     .thumbnail.text-center
       img.img_responsive(src=imgSource alt="err")
@@ -8,14 +8,10 @@ mixin article(imgSource, title, description, price)
         h3=title
         p.description=description
         div.clearfix
-          .price.float-left=price
+          .price.float-left=price + "zł"
           a.btn.btn-success.float-right(href="#" role="button") Add to cart
 
 block content
-  -const src1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEpqPVCslipaJGcye60z7sKRPG7qYcKrU7txKM_dQYZOhPvTr2&s"
-  -const title1 = "Thing"
-  -const description1 = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum aliquam nesciunt sunt similique corrupti architecto ratione nulla odio distinctio rem neque laboriosam officia, repudiandae dolorem rerum, nobis quod porro aliquid!"
-  -const price1 = "$12"
   .row
-    +article(src1, title1, description1, price1)
-    +article(src1, title1, description1, price1)
+    each product in products
+      +product(product.image, product.title, product.description, product.price)

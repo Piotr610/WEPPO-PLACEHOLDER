@@ -3,6 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+
+
+// Database 
+const db = require('./database').db;
+
+db
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -24,6 +38,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/js/'));
+
+// session
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
