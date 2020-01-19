@@ -41,16 +41,29 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/j
 
 // session
 app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true
+  name: 'sid',
+  secret: 'dhfshserharhestjersefgtafh',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 2 * 60 * 60 * 1000,
+    sameSite: true,
+    secure: false
+  }
 }))
+
+app.use(cookieParser('dhfshserharhestjersefgtafh'))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/checkout', checkoutRouter);
+
+app.get('/logout', (req, res) => {
+  req.session.destroy()
+  res.redirect('/')
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -65,7 +78,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', { session: req.session });
 });
 
 module.exports = app;

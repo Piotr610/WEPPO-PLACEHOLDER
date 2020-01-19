@@ -1,0 +1,19 @@
+extends layout
+
+mixin user(id, usr, pwd, adm)
+  th(scope="row")=id
+  td=usr
+  td=pwd
+  td=adm
+
+block content
+  .row
+    table.table
+      tr
+        th Id
+        th Username
+        th Password
+        th Is admin?
+        each user in users 
+          tr
+            +user(user.id, user.username, user.password, user.admin)

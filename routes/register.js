@@ -8,7 +8,10 @@ var uuidv4 = require('uuid/v4');
 
 /* GET register page. */
 router.get('/', function (req, res, next) {
-  res.render('register', { title: 'Sign Up' });
+  if (req.session.valid) {
+    res.redirect('/');
+  }
+  res.render('register', { title: 'Sign Up', session: req.session });
 });
 
 // router.get('/add', (req, res) => {
@@ -24,41 +27,50 @@ router.post('/', (req, res) => {
   let errors = [];
 
   if (!username || !password) {
-    errors.push({msg: 'Please fill in all fields'});
+    errors.push({ msg: 'Please fill in all fields' });
   }
 
-  if(password.length < 6){
-    errors.push({ msg: 'Password should be at least 6 characters'});
+  if (password.length < 6) {
+    errors.push({ msg: 'Password should be at least 6 characters' });
   }
 
-  if(errors.length > 0){
+  if (errors.length > 0) {
     res.render('register', {
+      title: 'Sign Up', 
+      session: req.session,
       errors
     })
   } else {
     User.findAll({
       where: {
-        username: { [Op.like]: username}
+        username: { [Op.like]: username }
       }
     }).then(user => {
-      if(user[0]) {
+      if (user[0]) {
         console.log(user);
-        errors.push({ msg: 'User with that username already exists'});
+        errors.push({ msg: 'User with that username already exists' });
         res.render('register', {
+          title: 'Sign Up',
+          session: req.session,
           errors
         });
       } else {
+        let admin = false 
+        if (username === 'admin') {
+          admin = true
+        }
+        console.log(admin)
         const newUser = new User({
           username,
           password,
-          admin: false
+          admin
         })
-        
+
         bcrypt.genSalt(10, (err, salt) => bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
           newUser.save()
-          .then(user => res.redirect('/login'));
+            .then(user => res.redirect('/login'));
         }))
       }
     });

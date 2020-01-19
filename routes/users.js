@@ -1,9 +1,23 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../database').User;
+var Sequelize = require('sequelize');
+var Op = Sequelize.Op;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  User.findAll()
+  .then(users => {
+    if (req.session.admin) {
+      res.render('users', {
+        title: 'Users page',
+        session: req.session,
+        users
+      })
+    } else {
+      res.redirect('/')
+    }
+  })
 });
 
 module.exports = router;

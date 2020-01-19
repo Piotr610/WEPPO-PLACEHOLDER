@@ -7,11 +7,13 @@ var Op = Sequelize.Op;
 
 /* GET home page. */
 router.get('/', function (req, res) {
+  console.log(req.session);
   Product.findAll()
     .then(products =>
       res.render('index', {
         title: 'Shop app',
-        products
+        products,
+        session: req.session
       }))
     .catch(err => console.log(err));
 });
@@ -40,19 +42,23 @@ router.get('/search', (req, res) => {
   let { term } = req.query;
 
   term = term.toLowerCase();
-
-  Product.findAll({
-    where: Sequelize.where(
-      Sequelize.fn('lower', Sequelize.col('title')), {
+  if (term === '') {
+    res.redirect('/')
+  } else {
+    Product.findAll({
+      where: Sequelize.where(
+        Sequelize.fn('lower', Sequelize.col('title')), {
         [Op.like]: term
       }
-    )
-  })
-  .then(products => res.render('index', {
-    title: 'Shop App',
-    products
-  }))
-  .catch(err => console.log(err));
+      )
+    })
+      .then(products => res.render('index', {
+        title: 'Shop App',
+        products,
+        session: req.session
+      }))
+      .catch(err => console.log(err));
+  }
 })
 
 module.exports = router;
