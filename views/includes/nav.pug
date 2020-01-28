@@ -1,30 +1,30 @@
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-  a.navbar-brand(href='/') Shop
-  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
-    span.navbar-toggler-icon
-  #navbarSupportedContent.collapse.navbar-collapse
-    ul.navbar-nav.mr-auto
-      li.nav-item
-        if session.admin
-          a.nav-link(href='/users')
-            | Users
-            span.sr-only (current)
-      //- li.nav-item
-      //-   a.nav-link(href='#') Link
-    form.form-inline.my-2.my-lg-0(action="/search")
-      input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search' name='term')
-      button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
-    ul#management.navbar-nav.ml-auto
-      li.nav-item
-        a.nav-link(href="/checkout") Shopping cart
-      li.nav-item.dropdown
-        a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-          if session.user
-            =session.user
-          else 
-            | Log in
-        .dropdown-menu(aria-labelledby='navbarDropdown')
-          if session.valid
-            a.dropdown-item(href='/logout') Log out
-          else
-            a.dropdown-item(href='/login') Sign in
+    a.navbar-brand(href='/') Shop
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+            li.nav-item
+                if session.admin
+                    a.nav-link(href='/users')
+                        | Users
+                        span.sr-only (current)
+            //- li.nav-item
+            //-   a.nav-link(href='#') Link
+        form.form-inline.my-2.my-lg-0(action="/search")
+            input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search' name='term')
+            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+        ul#management.navbar-nav.ml-auto
+            li.nav-item
+                a.nav-link(href="/checkout") Shopping cart
+            li.nav-item.dropdown
+                a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                    if session.user
+                        =session.user
+                    else 
+                        | Log in
+                .dropdown-menu(aria-labelledby='navbarDropdown')
+                    if session.valid
+                        a.dropdown-item(href='/logout') Log out
+                    else
+                        a.dropdown-item(href='/login') Sign in

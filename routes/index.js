@@ -7,15 +7,15 @@ var Op = Sequelize.Op;
 
 /* GET home page. */
 router.get('/', function (req, res) {
-  console.log(req.session);
-  Product.findAll()
-    .then(products =>
-      res.render('index', {
-        title: 'Shop app',
-        products,
-        session: req.session
-      }))
-    .catch(err => console.log(err));
+    console.log(req.session);
+    Product.findAll()
+        .then(products =>
+            res.render('index', {
+                title: 'Shop app',
+                products,
+                session: req.session
+            }))
+        .catch(err => console.log(err));
 });
 
 // router.get('/add', (req, res, next) => {
@@ -39,26 +39,26 @@ router.get('/', function (req, res) {
 // });
 
 router.get('/search', (req, res) => {
-  let { term } = req.query;
+    let { term } = req.query;
 
-  term = term.toLowerCase();
-  if (term === '') {
-    res.redirect('/')
-  } else {
-    Product.findAll({
-      where: Sequelize.where(
-        Sequelize.fn('lower', Sequelize.col('title')), {
-        [Op.like]: term
-      }
-      )
-    })
-      .then(products => res.render('index', {
-        title: 'Shop App',
-        products,
-        session: req.session
-      }))
-      .catch(err => console.log(err));
-  }
+    term = term.toLowerCase();
+    if (term === '') {
+        res.redirect('/')
+    } else {
+        Product.findAll({
+            where: Sequelize.where(
+                Sequelize.fn('lower', Sequelize.col('title')), {
+                [Op.like]: term
+            }
+            )
+        })
+            .then(products => res.render('index', {
+                title: 'Shop App',
+                products,
+                session: req.session
+            }))
+            .catch(err => console.log(err));
+    }
 })
 
 module.exports = router;

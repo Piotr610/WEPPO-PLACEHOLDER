@@ -1,13 +1,13 @@
 extends layout
 
 block content
-  .col-sm-8.main-section.text-center
-    h2.float-left Sign In
-    form.col-12(action="/login" method="POST")
-      .form-group
-        input.form-control(type="text" placeholder="Enter Username" name="username")
-      .form-group
-        input.form-control(type="password" placeholder="Enter Password" name="password")
-      button.btn.btn-success(type="submit") Login
-    .col-12
-      a.links(href="/register") Don't have an account?
+    .col-sm-8.main-section.text-center
+        h2.float-left Sign In
+        form.col-12(action="/login" method="POST")
+            .form-group
+                input.form-control(type="text" placeholder="Enter Username" name="username")
+            .form-group
+                input.form-control(type="password" placeholder="Enter Password" name="password")
+            button.btn.btn-success(type="submit") Login
+        .col-12
+            a.links(href="/register") Don't have an account?
