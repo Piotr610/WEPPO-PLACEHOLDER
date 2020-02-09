@@ -4,11 +4,16 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
         span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
-            li.nav-item
-                if session.admin
+            if session.admin
+                li.nav-item
                     a.nav-link(href='/users')
                         | Users
                         span.sr-only (current)
+                li.nav-item
+                    a.nav-link(href='/add_product')
+                        | Add product
+                        span.sr-only (current)
+                
             //- li.nav-item
             //-   a.nav-link(href='#') Link
         form.form-inline.my-2.my-lg-0(action="/search")
