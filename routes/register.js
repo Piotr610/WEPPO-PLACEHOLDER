@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
                     errors
                 });
             } else {
-                let admin = false
+                let admin = false;
                 const newUser = new User({
                     username,
                     password,

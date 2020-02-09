@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-var db = new Sequelize('shopapp', 'postgres', 'pozdro600', {
+var db = new Sequelize('shopapp', 'root', '', {
     host: 'localhost',
-    dialect: 'postgres',
+    dialect: 'mysql',
 
     pool: {
         max: 5,
