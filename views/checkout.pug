@@ -1,4 +1,21 @@
 extends layout
 
+mixin product(imgSource, title, description, price, id, amount)
+    .col-sm-6.col-md-4
+        .thumbnail.text-center
+            img.img_responsive(src=imgSource alt="err")
+            .caption
+                h3=title
+                p.description=description
+                div.clearfix
+                    .price.float-left=price + "$ x" + amount + " [ " + amount * price + "$ ]"
+                    a.btn.btn-success.float-right(href="/cart/add/"+id role="button") +
+                    a.btn.btn-danger.float-right(href="/cart/remove/"+id role="button") -
+
 block content
     h2 Checkout page
+    h4 Total price: #{total_price}$
+    .row
+        each order in orders
+            - var product = order.product
+            +product(product.image, product.title, product.description, product.price, product.id, order.amount)

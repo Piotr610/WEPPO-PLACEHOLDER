@@ -22,8 +22,8 @@ let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let loginRouter = require('./routes/login');
 let registerRouter = require('./routes/register');
-let checkoutRouter = require('./routes/checkout');
 let productsRouter = require('./routes/products');
+let cartRouter = require('./routes/cart');
 
 let app = express();
 
@@ -56,8 +56,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.use('/checkout', checkoutRouter);
 app.use('/product', productsRouter);
+app.use('/cart', cartRouter);
 
 
 app.get('/logout', (req, res) => {
