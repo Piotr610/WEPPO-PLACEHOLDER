@@ -4,6 +4,9 @@ let Product = require('../database').Product;
 let Sequelize = require('sequelize');
 
 router.get('/add/:id', (req, res, next) => {
+    if (!req.session.valid) {
+        res.redirect('/login');
+    }
     let id = req.params.id;
     if (id)
         if (id in req.session.cart) {
@@ -15,6 +18,9 @@ router.get('/add/:id', (req, res, next) => {
 });
 
 router.get('/remove/:id', (req, res, next) => {
+    if (!req.session.valid) {
+        res.redirect('/login');
+    }
     let id = req.params.id;
     if (id)
         if (id in req.session.cart) {
@@ -61,7 +67,7 @@ router.get('/checkout', (req, res, next) => {
         });
 
     } else {
-        res.send('Need to log in first!');
+        res.redirect('/login');
     }
 });
 
