@@ -48,7 +48,7 @@ router.get('/search', (req, res) => {
         Product.findAll({
             where: Sequelize.where(
                 Sequelize.fn('lower', Sequelize.col('title')), {
-                [Op.like]: term
+                [Op.like]: '%'+term+'%'
             }
             )
         })
