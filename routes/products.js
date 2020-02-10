@@ -3,7 +3,62 @@ var router = express.Router();
 var Product = require('../database').Product;
 var Sequelize = require('sequelize');
 
-router.get('/:id', function (req, res, next) {
+router.get('/add', function (req, res, next) {
+    if (req.session.admin) {
+        res.render('addproduct', { title: 'Add product', session: req.session });
+    } else {
+        res.redirect('/')
+    }
+});
+
+router.post('/add', (req, res) => {
+    const { title, image, description, price } = req.body;
+    let errors = [];
+
+    if (req.session.admin) {
+        if (!title || !image || !price) {
+            errors.push({ msg: 'Please fill in product name and image' });
+        }
+
+        if (errors.length > 0) {
+            res.render('addproduct', {
+                title: 'Add product',
+                session: req.session,
+                errors
+            });
+        } else {
+            let product = new Product({
+                image,
+                title,
+                description,
+                price
+            });
+
+            console.log(product);
+
+            product.save()
+                .then(p => res.redirect('/product/add'));
+        }
+    } else {
+        res.redirect('/');
+    }
+});
+
+router.get('/remove/:id', (req, res, next) => {
+    if (req.session.admin) {
+        Product.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(() => {
+            res.redirect('/');
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+router.get('/edit/:id', function (req, res, next) {
     if (req.session.admin) {
         Product.findOne({
             where: {
@@ -12,6 +67,7 @@ router.get('/:id', function (req, res, next) {
         }).then(p => {
             if (p) {
                 res.render('editproduct', {
+                    title: 'Edit product',
                     product: p,
                     session: req.session
                 });
@@ -24,7 +80,7 @@ router.get('/:id', function (req, res, next) {
     }
 });
 
-router.post('/:id', (req, res) => {
+router.post('/edit/:id', (req, res) => {
     const { title, image, description, price } = req.body;
     let errors = [];
 
@@ -54,6 +110,7 @@ router.post('/:id', (req, res) => {
 
             if (errors.length > 0) {
                 res.render('editproduct', {
+                    title: 'Edit product',
                     product: product,
                     session: req.session
                 });

@@ -9,10 +9,10 @@ mixin product(imgSource, title, description, price, id)
                 p.description=description
                 div.clearfix
                     .price.float-left=price + " $"
-                    a.btn.btn-success.float-right(href="#" role="button") Add to cart
+                    a.btn.btn-success.float-right(href="/add_to_cart/"+id role="button") Add to cart
                     if session.admin
-                        a.btn.btn-danger.float-right(href="/remove/"+id role="button") Remove
-                        a.btn.btn-info.float-right(href="/edit/"+id role="button") Edit
+                        a.btn.btn-danger.float-right(href="/product/remove/"+id role="button") Remove
+                        a.btn.btn-info.float-right(href="/product/edit/"+id role="button") Edit
 
 block content
     .row

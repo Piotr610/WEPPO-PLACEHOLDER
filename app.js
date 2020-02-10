@@ -23,9 +23,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var checkoutRouter = require('./routes/checkout');
-var addProductRouter = require('./routes/addproduct');
-var removeProductRouter = require('./routes/removeproduct');
-var editProductRouter = require('./routes/editproduct');
+var productsRouter = require('./routes/products');
 
 var app = express();
 
@@ -59,9 +57,8 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/checkout', checkoutRouter);
-app.use('/add_product', addProductRouter);
-app.use('/remove', removeProductRouter);
-app.use('/edit', editProductRouter);
+app.use('/product', productsRouter);
+
 
 app.get('/logout', (req, res) => {
     req.session.destroy()

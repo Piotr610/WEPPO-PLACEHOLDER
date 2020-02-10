@@ -3,7 +3,7 @@ extends layout
 block content
     .col-sm-8.main-section.text-center
         h2.float-left Edit product ##{product.id}
-        form.col-12(action="/edit/"+product.id method="POST")
+        form.col-12(action="/product/edit/"+product.id method="POST")
             .form-group
                 input.form-control(type="text" placeholder="Product name" name="title" value=product.title)
             .form-group
