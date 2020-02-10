@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../database').User;
-var Sequelize = require('sequelize');
-var Op = Sequelize.Op;
-var bcrypt = require('bcrypt');
+let express = require('express');
+let router = express.Router();
+let User = require('../database').User;
+let Sequelize = require('sequelize');
+let Op = Sequelize.Op;
+let bcrypt = require('bcrypt');
 
 /* GET register page. */
 router.get('/', function (req, res, next) {

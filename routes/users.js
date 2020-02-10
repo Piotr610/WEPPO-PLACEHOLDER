@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../database').User;
-var Sequelize = require('sequelize');
-var Op = Sequelize.Op;
+let express = require('express');
+let router = express.Router();
+let User = require('../database').User;
+let Sequelize = require('sequelize');
+let Op = Sequelize.Op;
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

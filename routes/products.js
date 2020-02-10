@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var Product = require('../database').Product;
-var Sequelize = require('sequelize');
+let express = require('express');
+let router = express.Router();
+let Product = require('../database').Product;
+let Sequelize = require('sequelize');
 
 router.get('/add', function (req, res, next) {
     if (req.session.admin) {

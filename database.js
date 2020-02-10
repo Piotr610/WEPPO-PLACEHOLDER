@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-var db = new Sequelize('shopapp', 'root', '', {
+let db = new Sequelize('shopapp', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
 

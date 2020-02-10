@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../database').db;
-var Product = require('../database').Product;
-var Sequelize = require('sequelize');
-var Op = Sequelize.Op;
+let express = require('express');
+let router = express.Router();
+let db = require('../database').db;
+let Product = require('../database').Product;
+let Sequelize = require('sequelize');
+let Op = Sequelize.Op;
 
 /* GET home page. */
 router.get('/', function (req, res) {
