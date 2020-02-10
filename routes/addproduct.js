@@ -3,7 +3,6 @@ var router = express.Router();
 var Product = require('../database').Product;
 var Sequelize = require('sequelize');
 
-/* GET register page. */
 router.get('/', function (req, res, next) {
     if (req.session.admin) {
         res.render('addproduct', { title: 'Add product', session: req.session });
@@ -11,7 +10,6 @@ router.get('/', function (req, res, next) {
         res.redirect('/')
     }
 });
-
 
 router.post('/', (req, res) => {
     const { title, image, description, price } = req.body;
@@ -44,6 +42,6 @@ router.post('/', (req, res) => {
     } else {
         res.redirect('/');
     }
-})
+});
 
 module.exports = router;
