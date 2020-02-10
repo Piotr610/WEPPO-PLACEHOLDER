@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    .col-sm-8.main-section.text-center
+        h2.float-left Edit product ##{product.id}
+        form.col-12(action="/edit/"+product.id method="POST")
+            .form-group
+                input.form-control(type="text" placeholder="Product name" name="title" value=product.title)
+            .form-group
+                input.form-control(type="text" placeholder="Image url" name="image" value=product.image)
+            .form-group
+                textarea.form-control(placeholder="Description" rows="10" style="width:100%;" name="description")
+                    | #{product.description}
+            .form-group
+                input.form-control(type="number" name="price" step="0.01" placeholder="Price" value=product.price)
+            button.btn.btn-success(type="submit") Save
+            if (errors != undefined) 
+                each err in errors
+                    .alert.alert-danger=err.msg
