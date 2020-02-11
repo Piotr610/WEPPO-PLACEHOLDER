@@ -44,7 +44,8 @@ router.post('/', (req, res) => {
             })
         } else {
             res.render('login', {
-                title: 'Log in failed'
+                title: 'Log in failed',
+                session: req.session
             })
         }
     })
