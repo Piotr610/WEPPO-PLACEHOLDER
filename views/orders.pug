@@ -12,8 +12,8 @@ mixin order(id, customer, value, details, status, created_at, updated_at)
     else
         td
             span.badge.badge-success=status
-    td=moment(created_at).format("HH:MM DD/MM/YY")
-    td=moment(updated_at).format("HH:MM DD/MM/YY")
+    td=moment(created_at).format("HH:mm DD/MM/YY")
+    td=moment(updated_at).format("HH:mm DD/MM/YY")
     if session.admin && status == 'processing'
         td
             a.btn.btn-success(href="/orders/change_status/"+id role="button") Change status

@@ -92,6 +92,7 @@ router.get('/make_order', (req, res, next) => {
                     }).then(() => {
                         user.norders++;
                         user.money_spent += value;
+                        session.cart = {};
                         user.save().then(() =>{
                             res.redirect('/orders');
                         });
