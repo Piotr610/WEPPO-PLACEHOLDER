@@ -15,7 +15,8 @@ mixin product(imgSource, title, description, price, id, amount)
 block content
     h2 Checkout page
     h4 Total price: #{total_price}$
-    .row
+    .row.d-flex.justify-content-around
         each order in orders
             - var product = order.product
             +product(product.image, product.title, product.description, product.price, product.id, order.amount)
+            

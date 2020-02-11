@@ -3,7 +3,23 @@ let router = express.Router();
 let Product = require('../database').Product;
 let Sequelize = require('sequelize');
 
-router.get('/add', function (req, res, next) {
+router.get('/details/:id', (req, res, next) => {
+    Product.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then(p => {
+        if (!p) res.send('<h1>404</h1>');
+
+        res.render('index', {
+           title: p.title,
+           products: [p],
+           session: req.session
+        });
+    });
+});
+
+router.get('/add', (req, res, next) => {
     if (req.session.admin) {
         res.render('addproduct', { title: 'Add product', session: req.session });
     } else {
@@ -27,17 +43,12 @@ router.post('/add', (req, res) => {
                 errors
             });
         } else {
-            let product = new Product({
+            Product.create({
                 image,
                 title,
                 description,
                 price
-            });
-
-            console.log(product);
-
-            product.save()
-                .then(p => res.redirect('/product/add'));
+            }).then(p => res.redirect('/product/details/'+p.id));
         }
     } else {
         res.redirect('/');

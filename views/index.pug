@@ -3,19 +3,21 @@ extends layout
 mixin product(imgSource, title, description, price, id)
     .col-sm-6.col-md-4
         .thumbnail.text-center
-            img.img_responsive(src=imgSource alt="err")
+            a(href="/product/details/"+id)
+                img.img_responsive(src=imgSource alt="err")
             .caption
-                h3=title
+                a(href="/product/details/"+id)
+                    h3=title
                 p.description=description
                 div.clearfix
                     .price.float-left=price + " $"
-                    if session.valid
-                        a.btn.btn-success.float-right(href="/cart/add/"+id role="button") Add to cart
                     if session.admin
                         a.btn.btn-danger.float-right(href="/product/remove/"+id role="button") Remove
                         a.btn.btn-info.float-right(href="/product/edit/"+id role="button") Edit
+                    else
+                        a.btn.btn-success.float-right(href="/cart/add/"+id role="button") Add to cart
 
 block content
-    .row
+    .row.d-flex.justify-content-around
         each product in products
             +product(product.image, product.title, product.description, product.price, product.id)
