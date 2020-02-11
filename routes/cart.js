@@ -1,6 +1,8 @@
 let express = require('express');
 let router = express.Router();
+let User = require('../database').User;
 let Product = require('../database').Product;
+let Order = require('../database').Order;
 let Sequelize = require('sequelize');
 
 router.get('/add/:id', (req, res, next) => {
@@ -66,6 +68,38 @@ router.get('/checkout', (req, res, next) => {
             });
         });
 
+    } else {
+        res.redirect('/login');
+    }
+});
+
+async function get_total_value(cart) {
+    return await get_orders(cart).then(o=>{
+        return o.reduce((acc, curr) => acc + (curr.amount * curr.product.price), 0);
+    });
+}
+
+router.get('/make_order', (req, res, next) => {
+    let session = req.session;
+    if (session.valid) {
+        User.findOne({where:{id:req.session.userid}}).then(user => {
+            get_total_value(session.cart).then(value => {
+                if (value > 0)
+                    Order.create({
+                        customer: session.userid,
+                        value: value,
+                        json: JSON.stringify(req.session.cart)
+                    }).then(() => {
+                        user.norders++;
+                        user.money_spent += value;
+                        user.save().then(() =>{
+                            res.redirect('/orders');
+                        });
+                    });
+                else
+                    res.redirect('/cart/checkout');
+            });
+        })
     } else {
         res.redirect('/login');
     }

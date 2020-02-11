@@ -22,6 +22,14 @@ const User = db.define('user', {
     },
     admin: {
         type: Sequelize.BOOLEAN
+    },
+    norders: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    money_spent: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0
     }
 }, {
     timestamps: false
@@ -45,8 +53,39 @@ const Product = db.define('product', {
     timestamps: false
 });
 
+const Order = db.define('order', {
+    customer: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'users',
+            key: 'id'
+        }
+    },
+    value: {
+        type: Sequelize.FLOAT
+    },
+    json: {
+        type: Sequelize.STRING
+    },
+    status: {
+        type: Sequelize.STRING,
+        defaultValue: 'processing'
+    },
+    created_at: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updated_at: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    }
+}, {
+    timestamps: false
+});
+
 module.exports = {
     db: db,
     User: User,
-    Product: Product
+    Product: Product,
+    Order: Order
 };

@@ -5,7 +5,6 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let session = require('express-session');
 
-
 // Database 
 const db = require('./database').db;
 
@@ -24,8 +23,12 @@ let loginRouter = require('./routes/login');
 let registerRouter = require('./routes/register');
 let productsRouter = require('./routes/products');
 let cartRouter = require('./routes/cart');
+let ordersRouter = require('./routes/orders');
 
 let app = express();
+
+app.locals.moment = require('moment');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,6 +61,7 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/product', productsRouter);
 app.use('/cart', cartRouter);
+app.use('/orders', ordersRouter);
 
 
 app.get('/logout', (req, res) => {

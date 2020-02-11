@@ -15,6 +15,7 @@ mixin product(imgSource, title, description, price, id, amount)
 block content
     h2 Checkout page
     h4 Total price: #{total_price}$
+    a.btn.btn-success(href="/cart/make_order/" role="button") Apply and make order
     .row.d-flex.justify-content-around
         each order in orders
             - var product = order.product

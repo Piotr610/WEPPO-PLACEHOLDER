@@ -1,0 +1,38 @@
+extends layout
+
+mixin order(id, customer, value, details, status, created_at, updated_at)
+    th(scope="row")=id
+    if session.admin
+        td=customer
+    td=value + "$"
+    td=details
+    if status == 'processing'
+        td
+            span.badge.badge-info=status
+    else
+        td
+            span.badge.badge-success=status
+    td=moment(created_at).format("HH:MM DD/MM/YY")
+    td=moment(updated_at).format("HH:MM DD/MM/YY")
+    if session.admin && status == 'processing'
+        td
+            a.btn.btn-success(href="/orders/change_status/"+id role="button") Change status
+
+block content
+    .row
+        table.table
+            tr
+                th id
+                if session.admin
+                    th customer
+                th value
+                th details
+                th status
+                th created at
+                th updated at
+                if session.admin
+                    th=""
+                each order in orders 
+                    tr
+                        +order(order.id, order.customer, order.value, order.json, order.status, order.created_at, order.updated_at)
+                
