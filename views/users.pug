@@ -1,9 +1,11 @@
 extends layout
 
-mixin user(id, usr, adm)
+mixin user(id, usr, adm, norders, money_spent)
     th(scope="row")=id
     td=usr
     td=adm
+    td=norders
+    td=money_spent
 
 block content
     .row
@@ -12,6 +14,8 @@ block content
                 th id
                 th username
                 th superuser?
+                th #orders
+                th total money spent
                 each user in users 
                     tr
-                        +user(user.id, user.username, user.admin)
+                        +user(user.id, user.username, user.admin, user.norders, user.money_spent)
